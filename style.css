@@ -1,0 +1,608 @@
+/* Universal Styles & Resets */
+:root {
+    /* Colors */
+    --clr-primary-dark-blue: hsl(233, 26%, 24%);
+    --clr-primary-lime-green: hsl(136, 65%, 51%);
+    --clr-primary-bright-cyan: hsl(192, 70%, 51%);
+
+    --clr-neutral-grayish-blue: hsl(233, 8%, 62%);
+    --clr-neutral-light-grayish-blue: hsl(220, 16%, 96%);
+    --clr-neutral-very-light-gray: hsl(0, 0%, 98%);
+    --clr-neutral-white: hsl(0, 0%, 100%);
+
+    /* Gradients */
+    --gradient-lime-cyan: linear-gradient(to right, var(--clr-primary-lime-green), var(--clr-primary-bright-cyan));
+
+    /* Fonts */
+    --ff-public-sans: 'Public Sans', sans-serif;
+    --fw-light: 300;
+    --fw-regular: 400;
+    --fw-bold: 700;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--ff-public-sans);
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--clr-neutral-grayish-blue);
+    overflow-x: hidden; /* Prevent horizontal scroll from image positioning */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* Reusable Components */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.button {
+    display: inline-block;
+    padding: 15px 35px;
+    border-radius: 50px;
+    background-image: var(--gradient-lime-cyan); /* This ensures the gradient color */
+    color: var(--clr-neutral-white);
+    font-weight: var(--fw-bold);
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.3s ease;
+}
+
+.button:hover {
+    opacity: 0.7;
+}
+
+h1, h2, h3 {
+    color: var(--clr-primary-dark-blue);
+    line-height: 1.1;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+/* Helper Classes for Display Toggling */
+.hide-for-mobile {
+    display: block; /* Default for desktop */
+}
+.hide-for-desktop {
+    display: none; /* Default for mobile */
+}
+
+
+/* Header */
+.header {
+    background-color: var(--clr-neutral-white);
+    padding: 20px 0;
+    position: relative;
+    z-index: 100; /* Ensure header is on top */
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__logo img {
+    height: 25px; /* Adjust as needed */
+}
+
+.header__nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.header__nav a {
+    font-size: 0.9rem;
+    color: var(--clr-neutral-grayish-blue);
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.header__nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-image: var(--gradient-lime-cyan);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.header__nav a:hover {
+    color: var(--clr-primary-dark-blue);
+}
+
+.header__nav a:hover::after {
+    opacity: 1;
+}
+
+.header__btn {
+    /* Styles inherited from .button */
+}
+
+/* Header Mobile Toggle (Hamburger/Close Icons) */
+.header__toggle {
+    cursor: pointer;
+    /* You'll likely need JS to toggle between hamburger and close icons */
+}
+.header__toggle .icon-close {
+    display: none; /* Hidden by default, shown when menu is open */
+}
+
+
+/* Hero Section */
+.hero {
+    background-color: var(--clr-neutral-very-light-gray);
+    padding-top: 50px; /* Adjust to allow header overlap if needed */
+    position: relative;
+    overflow: hidden; /* Important for absolute positioning of images */
+    min-height: 600px; /* Ensure space for image */
+}
+
+.hero .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row; /* Default desktop layout */
+    position: relative;
+    z-index: 1;
+    height: 100%; /* Important for image positioning relative to container */
+}
+
+.hero__content {
+    flex: 1;
+    max-width: 500px;
+    text-align: left;
+    margin-bottom: 50px; /* Space for content below image on mobile */
+}
+
+.hero__image {
+    position: absolute;
+    top: -150px; /* Adjust to move images up */
+    right: -150px; /* Adjust to move images right, off-screen slightly */
+    z-index: 0;
+    width: 700px; /* Base width for image container */
+    height: 700px; /* Base height */
+    overflow: hidden; /* To contain inner images */
+}
+
+.hero__image-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the container */
+}
+
+.hero__image-mockups {
+    position: absolute;
+    top: 50%; /* Adjust to vertically center the mockups relative to the background */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the mockups */
+    width: 80%; /* Adjust size relative to image-bg */
+    height: auto;
+}
+
+/* Hide desktop background image for mobile */
+.hero__image-bg.mobile-bg {
+    display: none;
+}
+
+
+/* Features Section */
+.features {
+    background-color: var(--clr-neutral-light-grayish-blue);
+    padding: 60px 0; /* Reduced for a more compact look */
+    /* text-align: center; -- Removed this general centering for desktop */
+}
+
+.features h2 { /* Targeting the heading specifically */
+    text-align: left; /* Aligned to the left */
+    font-weight: 400; /* Made less bold (regular) */
+}
+
+.features__intro {
+    max-width: 600px;
+    margin-bottom: 30px; /* Keep bottom margin */
+    margin-left: 0; /* Align block to the left on desktop */
+    margin-right: auto; /* Allow block to shrink from the right */
+    text-align: left; /* Ensure text within block is left-aligned */
+}
+
+.features__grid {
+    display: grid;
+    /* Adjusted minmax to ensure 4 items fit in one row on desktop */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    text-align: left;
+}
+
+.feature-item img {
+    height: 70px; /* Size of icons */
+    margin-bottom: 25px;
+}
+
+/* Articles Section */
+.articles {
+    background-color: var(--clr-neutral-very-light-gray);
+    padding: 60px 0; /* Reduced for a more compact look */
+    text-align: center; /* This section's heading and intro still centered by default */
+}
+
+.articles__grid {
+    display: grid;
+    /* Adjusted minmax to ensure 4 items fit in one row on desktop */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+}
+
+.article-card {
+    background-color: var(--clr-neutral-white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+}
+
+.article-card__image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.article-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.article-card:hover .article-card__image img {
+    transform: scale(1.05);
+}
+
+.article-card__content {
+    padding: 25px;
+}
+
+.article-card__author {
+    font-size: 0.75rem;
+    color: var(--clr-neutral-grayish-blue);
+    margin-bottom: 10px;
+    display: block;
+}
+
+.article-card__title {
+    font-size: 1.1rem;
+    color: var(--clr-primary-dark-blue);
+    line-height: 1.3;
+    transition: color 0.3s ease;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.article-card__title:hover {
+    color: var(--clr-primary-lime-green);
+}
+
+.article-card__description {
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+
+/* Footer */
+.footer {
+    background-color: var(--clr-primary-dark-blue);
+    color: var(--clr-neutral-white);
+    padding: 50px 0;
+}
+
+.footer .container {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    justify-content: space-between;
+    column-gap: 50px; /* Adjust this value for more/less space between columns */
+}
+
+.footer__col {
+    flex-basis: auto; /* Default flexibility */
+    margin-bottom: 20px; /* Space between columns on wrap */
+}
+
+.footer__col--brand {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-basis: 250px; /* Min width for this column */
+}
+
+.footer__logo img {
+    height: 25px; /* Adjust size */
+    margin-bottom: 30px; /* Space between logo and socials */
+}
+
+.footer__socials {
+    display: flex;
+    gap: 15px;
+}
+
+.footer__socials img {
+    height: 20px; /* Size of social icons */
+    transition: filter 0.3s ease;
+}
+
+.footer__socials a:hover img {
+    filter: brightness(0) saturate(100%) invert(50%) sepia(85%) saturate(3065%) hue-rotate(97deg) brightness(101%) contrast(105%); /* Adjust to a green color on hover */
+}
+
+.footer__col--links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer__col--links li {
+    margin-bottom: 10px;
+}
+
+.footer__col--links a {
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer__col--links a:hover {
+    color: var(--clr-primary-lime-green);
+}
+
+.footer__col--action-copyright {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Align to the right for desktop */
+    justify-content: space-between; /* Push button up and copyright down */
+    flex-grow: 1; /* Allow this column to take remaining space */
+}
+
+.footer__btn {
+    margin-bottom: 25px; /* Increased space below the button */
+    /* Styles inherited from .button */
+}
+
+.footer__col--copyright p {
+    font-size: 0.8rem;
+    color: var(--clr-neutral-grayish-blue);
+}
+
+
+/* --- Media Queries for Responsiveness --- */
+
+/* Tablet & Smaller Desktop */
+@media (max-width: 1024px) {
+    .hero__image {
+        right: -100px;
+        width: 600px;
+        height: 600px;
+        top: -100px;
+    }
+
+    .hero__content {
+        max-width: 450px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    /* Helper Classes for Display Toggling on Mobile */
+    .hide-for-mobile {
+        display: none;
+    }
+    .hide-for-desktop {
+        display: block;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+    h2 {
+        font-size: 1.8rem;
+    }
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    /* Header Mobile */
+    .header .container {
+        flex-direction: row; /* Keep logo and toggle on one row */
+        justify-content: space-between;
+        align-items: center;
+        gap: 0; /* Remove gap */
+    }
+    .header__toggle {
+        display: block; /* Show hamburger/close icons */
+    }
+    .header__toggle .icon-hamburger { /* Default state */
+        display: block;
+    }
+    .header__toggle .icon-close { /* Hidden by default */
+        display: none;
+    }
+    /* You'd add JS to toggle 'display: none'/'display: block' for these icons */
+
+
+    /* Hero Section Mobile */
+    .hero {
+        padding-top: 0; /* Remove top padding */
+        min-height: auto; /* Allow height to adjust */
+        text-align: center; /* Center content, this ensures the button is centered */
+    }
+    .hero .container {
+        flex-direction: column-reverse; /* Image above content */
+        justify-content: flex-start; /* Align from top */
+    }
+    .hero__content {
+        max-width: 100%;
+        margin-bottom: 0;
+        padding: 0 20px 40px; /* Adjusted bottom padding to the content area */
+    }
+    .hero__content h1 {
+        font-size: 2.2rem; /* Adjust mobile heading size */
+    }
+    .hero__content p {
+        font-size: 1rem; /* Adjust mobile paragraph size */
+        margin-bottom: 30px; /* Increased gap below paragraph for button (was 15px) */
+    }
+    .hero__image {
+        position: relative; /* Back to normal flow */
+        top: auto;
+        right: auto;
+        width: 100%;
+        height: auto;
+        z-index: 0;
+        overflow: visible; /* Allow mockups to extend beyond its own boundary if needed */
+    }
+    /* Hide desktop background image for mobile */
+    .hero__image-bg.desktop-bg {
+        display: none;
+    }
+    /* Show mobile background image for mobile */
+    .hero__image-bg.mobile-bg {
+        display: block;
+        position: absolute; /* Position relative to .hero */
+        width: 100%;
+        top: 0; /* Adjust as per design */
+        left: 0;
+        height: 100%; /* Ensure it covers the area */
+        object-fit: cover; /* Cover the container */
+        z-index: -1; /* Place behind mockups and content */
+    }
+    .hero__image-mockups {
+        position: relative; /* Relative positioning within the image container */
+        top: 0;
+        left: 0;
+        transform: none; /* Reset transform */
+        width: 100%; /* Full width within its container */
+        max-width: 350px; /* Limit max width of mockups for mobile */
+        margin: -50px auto 0; /* Adjusted margin-top to bring it down */
+    }
+
+
+    /* Features Section Mobile */
+    .features, .articles {
+        padding: 50px 0; /* Adjusted for mobile */
+    }
+
+    /* Mobile specific alignment for features heading and intro */
+    .features h2,
+    .features__intro {
+        text-align: center; /* This ensures the text is centered on mobile */
+        margin-left: auto; /* Re-center block on mobile */
+        margin-right: auto; /* Re-center block on mobile */
+    }
+    .features__intro {
+        font-size: 0.9rem; /* Smaller text for the paragraph on mobile */
+    }
+
+
+    .features__grid, .articles__grid {
+        grid-template-columns: 1fr; /* Single column on mobile */
+        text-align: center; /* Center content of grid items */
+    }
+    .feature-item img {
+        margin: 0 auto 25px; /* Center icon */
+    }
+
+    .feature-item {
+        margin-bottom: 30px;
+    }
+
+    .article-card__content {
+        padding: 20px;
+    }
+
+
+    /* Footer Mobile */
+    .footer .container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        column-gap: 0;
+    }
+    .footer__col {
+        margin-bottom: 30px; /* More space between stacked columns */
+    }
+    .footer__col--brand {
+        align-items: center; /* Center logo and socials */
+    }
+    .footer__logo img {
+        margin-bottom: 25px; /* Adjusted spacing */
+    }
+    .footer__socials {
+        display: flex;
+        gap: 15px;
+    }
+    .footer__socials img {
+        height: 20px; /* Size of social icons */
+    }
+    .footer__col--links {
+        margin-bottom: 0; /* Remove default column margin */
+    }
+    .footer__col--links ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center links */
+        gap: 10px; /* Space between links */
+        margin-bottom: 20px; /* Space between link columns if they stack (or between last link and button if one col) */
+    }
+    .footer__col--links:first-of-type ul { /* First list of links */
+        margin-bottom: 10px; /* Less space between the two link columns */
+    }
+    .footer__col--action-copyright {
+        align-items: center; /* Center button and copyright */
+        justify-content: center; /* Center vertically */
+        margin-top: 20px; /* Space from links above */
+        flex-grow: 0; /* Don't grow to fill space */
+    }
+    .footer__btn {
+        margin-bottom: 20px; /* Space between button and copyright */
+    }
+    .footer__col--copyright p {
+        margin-top: 0; /* No extra top margin needed here */
+    }
+}
